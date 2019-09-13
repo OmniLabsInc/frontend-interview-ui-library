@@ -1,0 +1,16 @@
+{
+  "opts": {
+    "destination": "./jsdocs/",
+    "encoding": "utf8",
+    "readme": "./README.md",
+    "recurse": true,
+    "verbose": false
+  },
+
+  "plugins": ["plugins/markdown"],
+
+  "source": {
+    "exclude": ["node_modules", "coverage"],
+    "include": ["./"]
+  }
+}

@@ -1,0 +1,230 @@
+{
+  "name": "frontend-interview-ui-library",
+  "version": "0.0.1",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/omnilabsinc/frontend-interview-ui-library.git"
+  },
+  "scripts": {
+    "build": "NODE_ENV=production babel --delete-dir-on-start src/lib --no-comments --out-dir dist --copy-files --ignore __tests__,spec.js,test.js,__snapshots__,stories.jsx",
+    "build-link": "npm run build && rm -r ../extension/node_modules/@omni/frontend-interview-ui-library/dist && cp -r dist ../extension/node_modules/@omni/frontend-interview-ui-library/dist",
+    "build-watch": "nodemon --ignore dist -e js,jsx,css,svg,html,ico,json --exec npm run build-link",
+    "build-storybook": "build-storybook -s public",
+    "docs": "yarn run docs-generate && yarn run docs-serve",
+    "docs-generate": "jsdoc -c ./jsdoc.config.json",
+    "docs-serve": "http-server ./jsdocs/ -o",
+    "eject": "react-scripts eject",
+    "lint": "eslint --cache --ext .jsx,.js --format=pretty src",
+    "lint-fix": "yarn --silent lint --fix; exit 0",
+    "dev": "react-scripts start",
+    "storybook": "start-storybook -p 9009 -s public",
+    "snapshots": "jest __tests__/structuralTests/storyshots.test.js",
+    "interaction": "jest __tests__/interactionTests/*.test.jsx",
+    "publish-to-npm": "yarn build && yarn publish",
+    "test": "jest"
+  },
+  "prettier": {
+    "printWidth": 80,
+    "tabWidth": 2,
+    "singleQuote": true,
+    "semi": false,
+    "trailingComma": "all"
+  },
+  "jest": {
+    "testRegex": "/__tests__/.*(test|spec)\\.[jt]sx?$",
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
+      ".+\\.(css|styl|less|sass|scss)$": "identity-obj-proxy"
+    }
+  },
+  "eslintConfig": {
+    "parser": "babel-eslint",
+    "parserOptions": {
+      "ecmaFeatures": {
+        "globalReturn": true,
+        "generators": false,
+        "objectLiteralDuplicateProperties": false,
+        "experimentalObjectRestSpread": true,
+        "jsx": true
+      },
+      "ecmaVersion": 2017,
+      "sourceType": "module"
+    },
+    "settings": {
+      "import/resolver": {
+        "node": {
+          "paths": [
+            "src"
+          ]
+        }
+      }
+    },
+    "extends": [
+      "airbnb",
+      "eslint-config-prettier",
+      "eslint-config-prettier/react"
+    ],
+    "plugins": [
+      "react",
+      "import",
+      "promise",
+      "compat",
+      "eslint-plugin-prettier",
+      "react-hooks"
+    ],
+    "env": {
+      "browser": true,
+      "jest": true
+    },
+    "rules": {
+      "react/jsx-props-no-spreading": 0,
+      "prettier/prettier": "error",
+      "no-console": "off",
+      "no-underscore-dangle": "off",
+      "import/no-extraneous-dependencies": 0,
+      "import/no-cycle": 0,
+      "radix": 0,
+      "no-await-in-loop": 0,
+      "jsx-a11y/no-static-element-interactions": 0,
+      "import/prefer-default-export": 0,
+      "no-class-assign": 0,
+      "no-param-reassign": 1,
+      "no-plusplus": [
+        "error",
+        {
+          "allowForLoopAfterthoughts": true
+        }
+      ],
+      "react/prop-types": 0,
+      "prefer-destructuring": 0,
+      "react/sort-comp": 0,
+      "no-use-before-define": 0,
+      "react/require-default-props": 0,
+      "react/forbid-prop-types": 0,
+      "react/no-array-index-key": 0,
+      "no-shadow": 0,
+      "react/prefer-stateless-function": 0,
+      "react/destructuring-assignment": 0,
+      "consistent-return": 0,
+      "no-dupe-keys": 0,
+      "react/no-string-refs": 0,
+      "react-hooks/rules-of-hooks": "error",
+      "react-hooks/exhaustive-deps": "warn"
+    }
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx}": [
+      "eslint --cache --format=pretty",
+      "git add"
+    ],
+    "{*.json,.{babelrc,eslintrc,prettierrc,stylelintrc}}": [
+      "prettier --ignore-path .eslintignore --parser json --write",
+      "git add"
+    ],
+    "*.{css}": [
+      "stylelint --ignore-path .eslintignore --syntax scss --fix",
+      "prettier --ignore-path .eslintignore --single-quote --write",
+      "git add"
+    ],
+    "*.{html,md,yml}": [
+      "prettier --ignore-path .eslintignore --single-quote --write",
+      "git add"
+    ]
+  },
+  "dependencies": {
+    "@material-ui/core": "^4.3.3",
+    "@material-ui/icons": "^4.2.1",
+    "prop-types": "^15.7.2",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.0",
+    "@babel/plugin-transform-runtime": "^7.5.0",
+    "@storybook/addon-actions": "^5.1.11",
+    "@storybook/addon-knobs": "^5.1.11",
+    "@storybook/addon-links": "^5.1.11",
+    "@storybook/addon-storyshots": "^5.1.11",
+    "@storybook/addon-storysource": "^5.1.11",
+    "@storybook/addons": "^5.1.11",
+    "@storybook/react": "^5.1.11",
+    "babel-plugin-macros": "^2.6.1",
+    "eslint": "^6.2.2",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-config-prettier": "^6.1.0",
+    "eslint-plugin-compat": "^3.2.0",
+    "eslint-plugin-import": "^2.18.0",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-prettier": "^3.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-react": "^7.14.2",
+    "eslint-plugin-react-hooks": "^2.0.1",
+    "http-server": "^0.11.1",
+    "identity-obj-proxy": "^3.0.0",
+    "jsdoc": "^3.6.2",
+    "lint-staged": "^9.2.5",
+    "prettier": "^1.18.2",
+    "react-jss": "^8.6.1",
+    "react-scripts": "^3.1.1",
+    "react-test-renderer": "^16.9.0",
+    "require-context.macro": "^1.1.1",
+    "storybook-addon-material-ui": "^0.9.0-alpha.20",
+    "stylelint-config-standard": "^18.3.0"
+  },
+  "peerDependencies": {
+    "@material-ui/core": "^4.2.0",
+    "@material-ui/icons": "^4.2.1",
+    "react": "^16.8.6",
+    "react-dom": "^16.9.0"
+  },
+  "description": "UI components library to act as quickstart for frontend interview",
+  "bugs": {
+    "url": "https://github.com/omniinc/frontend-interview-ui-library/issues"
+  },
+  "homepage": "https://github.com/omniinc/frontend-interview-ui-library#readme",
+  "author": "",
+  "license": "UNLICENSED",
+  "babel": {
+    "presets": [
+      [
+        "react-app",
+        {
+          "absoluteRuntime": false
+        }
+      ]
+    ],
+    "plugins": [
+      "macros",
+      [
+        "@babel/plugin-transform-runtime",
+        {
+          "absoluteRuntime": false
+        }
+      ]
+    ]
+  }
+}
