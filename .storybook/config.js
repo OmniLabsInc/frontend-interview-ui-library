@@ -2,8 +2,6 @@ import { configure, addParameters, addDecorator } from '@storybook/react'
 import requireContext from 'require-context.macro'
 import React from 'react'
 import JssProvider from 'react-jss/lib/JssProvider'
-import { muiTheme } from 'storybook-addon-material-ui'
-import { darkTheme, lightTheme } from '../src/lib/themes'
 
 // automatically import all files ending in *.stories.jsx
 // we are using a custom requireContext needed for storyshots (https://github.com/storybookjs/storybook/tree/master/addons/storyshots/storyshots-core)
@@ -20,8 +18,6 @@ const generateClassName = (rule, styleSheet) =>
 addDecorator(story => (
   <JssProvider generateClassName={generateClassName}>{story()}</JssProvider>
 ))
-
-addDecorator(muiTheme([lightTheme, darkTheme]))
 
 addParameters({
   options: {

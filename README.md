@@ -47,6 +47,6 @@ Runs the storybook for interactions with the project.
 
 ## Interview Notes
 
-- Feel free to use any design library for component designs. We use [Material-UI](https://material-ui.com).
+- Feel free to use any design library for component designs.
 - We might not be able to finish the complete issue. It's okay! We are trying to determine what thought process goes into developing this. The goal is to understand how we work together on problems.
 - Let's share the screen and try to think out loud as you are solving the provided issue. Feel free to ask more clarifying questions as you go along.
